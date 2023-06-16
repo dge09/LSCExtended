@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.bg_controlls = new System.Windows.Forms.GroupBox();
+            this.btndoshit = new System.Windows.Forms.Button();
             this.btn_start = new System.Windows.Forms.Button();
             this.tb_repeats = new System.Windows.Forms.TextBox();
             this.l_repeats = new System.Windows.Forms.Label();
             this.gb_data = new System.Windows.Forms.GroupBox();
-            this.lb_liveLog = new System.Windows.Forms.ListBox();
             this.dgv_data = new System.Windows.Forms.DataGridView();
             this.l_data = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -43,7 +43,7 @@
             this.Mbtn_rstKeyWrds = new System.Windows.Forms.ToolStripMenuItem();
             this.historyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Mbtn_showLateFnd = new System.Windows.Forms.ToolStripMenuItem();
-            this.btndoshit = new System.Windows.Forms.Button();
+            this.lb_liveLog = new System.Windows.Forms.ListBox();
             this.bg_controlls.SuspendLayout();
             this.gb_data.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_data)).BeginInit();
@@ -62,6 +62,16 @@
             this.bg_controlls.TabIndex = 4;
             this.bg_controlls.TabStop = false;
             this.bg_controlls.Text = "Controlls";
+            // 
+            // btndoshit
+            // 
+            this.btndoshit.Location = new System.Drawing.Point(296, 20);
+            this.btndoshit.Name = "btndoshit";
+            this.btndoshit.Size = new System.Drawing.Size(94, 29);
+            this.btndoshit.TabIndex = 3;
+            this.btndoshit.Text = "do smthng";
+            this.btndoshit.UseVisualStyleBackColor = true;
+            this.btndoshit.Click += new System.EventHandler(this.btndoshit_Click);
             // 
             // btn_start
             // 
@@ -100,16 +110,6 @@
             this.gb_data.TabIndex = 5;
             this.gb_data.TabStop = false;
             this.gb_data.Text = "Data View";
-            // 
-            // lb_liveLog
-            // 
-            this.lb_liveLog.FormattingEnabled = true;
-            this.lb_liveLog.ItemHeight = 20;
-            this.lb_liveLog.Location = new System.Drawing.Point(6, 46);
-            this.lb_liveLog.Name = "lb_liveLog";
-            this.lb_liveLog.Size = new System.Drawing.Size(547, 264);
-            this.lb_liveLog.TabIndex = 2;
-            this.lb_liveLog.Visible = false;
             // 
             // dgv_data
             // 
@@ -187,15 +187,15 @@
             this.Mbtn_showLateFnd.Size = new System.Drawing.Size(225, 26);
             this.Mbtn_showLateFnd.Text = "Show latest findings";
             // 
-            // btndoshit
+            // lb_liveLog
             // 
-            this.btndoshit.Location = new System.Drawing.Point(296, 20);
-            this.btndoshit.Name = "btndoshit";
-            this.btndoshit.Size = new System.Drawing.Size(94, 29);
-            this.btndoshit.TabIndex = 3;
-            this.btndoshit.Text = "do smthng";
-            this.btndoshit.UseVisualStyleBackColor = true;
-            this.btndoshit.Click += new System.EventHandler(this.btndoshit_Click);
+            this.lb_liveLog.FormattingEnabled = true;
+            this.lb_liveLog.ItemHeight = 20;
+            this.lb_liveLog.Location = new System.Drawing.Point(6, 46);
+            this.lb_liveLog.Name = "lb_liveLog";
+            this.lb_liveLog.Size = new System.Drawing.Size(547, 264);
+            this.lb_liveLog.TabIndex = 2;
+            this.lb_liveLog.Visible = false;
             // 
             // Form1
             // 
@@ -229,7 +229,6 @@
         private GroupBox gb_data;
         private DataGridView dgv_data;
         private Label l_data;
-        private ListBox lb_liveLog;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem settingsToolStripMenuItem;
         private ToolStripMenuItem Mbtn_addKeyWrd;
@@ -238,5 +237,6 @@
         private ToolStripMenuItem historyToolStripMenuItem;
         private ToolStripMenuItem Mbtn_showLateFnd;
         private Button btndoshit;
+        private ListBox lb_liveLog;
     }
 }

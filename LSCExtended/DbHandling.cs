@@ -9,28 +9,28 @@ using System.Threading.Tasks;
 
 namespace LSCExtended
 {
-    public class DbHandling
+    public static class DbHandling
     {
-        private String connectionString;
+        private static String connectionString;
 
         
-        private SqlDataReader reader;
+        private static SqlDataReader reader;
 
 
-        private String FDInsert;
-        private String FDSelect;
-        private String KWInsert;
-        private String KWSelect;
+        private static String FDInsert;
+        private static String FDSelect;
+        private static String KWInsert;
+        private static String KWSelect;
         
         
 
-        public DbHandling()
+        static DbHandling()
         {
             connectionString = @"Data Source=DGE09PC\SQLEXPRESS;Initial Catalog=LSCollection;Integrated Security=True;";
             FDInsert = "INSERT INTO FoundData VALUES(@collectedData, @category, @link); SELECT CAST(scope_identity() AS int);";
             KWInsert = "INSERT INTO Keyword VALUES(@keyword); SELECT CAST(scope_identity() AS int);";
 
-            FDSelect = "SELECT * FROM FoundData;";
+            FDSelect = "SELECT ID, FData, Category, Link FROM FoundData;";
             KWSelect = "SELECT * FROM KeyWord;";
 
 
@@ -41,7 +41,7 @@ namespace LSCExtended
         //==================================  FoundData  =================================================
         //================================================================================================
 
-        public void InsertFD()
+        public static void InsertFD()
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -58,13 +58,13 @@ namespace LSCExtended
             }
         }
 
-        public List<FoundData> SelectFoundData()
+        public static List<FoundData> SelectFoundData()
         {
             List<FoundData> foundData = new();
 
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                SqlCommand selCmd = new SqlCommand(KWSelect, con);
+                SqlCommand selCmd = new SqlCommand(FDSelect, con);
 
                 con.Open();
 
@@ -74,12 +74,13 @@ namespace LSCExtended
                 {
                     while (reader.Read())
                     {
-
-                        FoundData readFoundData = new();
-                        readFoundData.ID = reader.GetInt32(0);
-                        readFoundData.Data = reader.GetString(1);
-                        readFoundData.Category = reader.GetString(2);
-                        readFoundData.Link = reader.GetString(3);
+                        FoundData readFoundData = new FoundData
+                        {
+                            ID = reader.GetInt32(0),
+                            FData = reader.GetString(1),
+                            Category = reader.GetString(2),
+                            Link = reader.GetString(3)
+                        };
 
                         foundData.Add(readFoundData);
                     }
@@ -96,7 +97,7 @@ namespace LSCExtended
         //================================================================================================
         //==================================  Keywords  ==================================================
         //================================================================================================
-        public List<String> SelectKeywords()
+        public static List<String> SelectKeywords()
         {
             List<string> KeyWords = new();
             string readKeyword = string.Empty;

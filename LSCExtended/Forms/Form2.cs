@@ -39,7 +39,7 @@ namespace LSCExtended
         {
             DGV_Keys.Columns.Clear();
 
-            List<string> keys = DBFileHandling.GetKeys(myCon);
+            List<string> keys = DbHandling.SelectKeywords();
 
             foreach (var key in keys)
             {

@@ -100,7 +100,7 @@ namespace LSCExtended.DataBase
                 throw new Exception("SQLite Connection Error");
             }
 
-            SQLiteCommand sql = new("INSERT INTO FoundData (ImageUrl, WebPageUrl, Category) VALUES ('" + fd.Data + "', '" + fd.Link + "', '" + fd.Category + "');", myCon);
+            SQLiteCommand sql = new("INSERT INTO FoundData (ImageUrl, WebPageUrl, Category) VALUES ('" + fd.FData + "', '" + fd.Link + "', '" + fd.Category + "');", myCon);
 
             sql.ExecuteNonQuery();
 
@@ -119,7 +119,7 @@ namespace LSCExtended.DataBase
 
             foreach (FoundData fd in fdList)
             {
-                sql = new("INSERT INTO FoundData (ImageUrl, WebPageUrl, Category) VALUES ('" + fd.Data + "', '" + fd.Link + "', '" + fd.Category + "');", myCon);
+                sql = new("INSERT INTO FoundData (ImageUrl, WebPageUrl, Category) VALUES ('" + fd.FData + "', '" + fd.Link + "', '" + fd.Category + "');", myCon);
 
                 sql.ExecuteNonQuery();
             }

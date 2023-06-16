@@ -1,6 +1,7 @@
 using System.Data.SQLite;
 using LSCExtended.DataBase;
 using LSCExtended.DataHandling;
+using SixLabors.Fonts;
 
 namespace LSCExtended
 {
@@ -15,11 +16,20 @@ namespace LSCExtended
         {
             InitializeComponent();
 
+            lb_liveLog.Visible = false;
+            dgv_data.Visible = true;
 
+            List<FoundData> fd = DbHandling.SelectFoundData();
 
-            List<FoundData> fd = 
+            dgv_data.Columns.Add("ID", "ID");
+            dgv_data.Columns.Add("FData", "FData");
+            dgv_data.Columns.Add("Category", "Category");
+            dgv_data.Columns.Add("Link", "Link");
 
-            dgv_data
+            foreach (FoundData item in fd)
+            {
+                dgv_data.Rows.Add(item.ID, item.FData, item.Category, item.Link);
+            }
 
 
 
@@ -59,14 +69,6 @@ namespace LSCExtended
                     collectedData = OCRHandling.GetTextFromImg(imgPath);
 
                 }
-
-                /* single insert works list insert not tested yet !!!!!!!!!!!!!!!!!!!
-                fd.Data = i + "idkURL";
-                fd.Link = i + "idkPageURL";
-                fd.Category = i + "idkCategory";
-
-                DBFileHandling.InsertIntoDB(myCon, fd);
-                */
             }
         }
 
@@ -76,12 +78,12 @@ namespace LSCExtended
             keyForm.ShowDialog();
         }
 
+
+        // just for testin DELETE AT THE END
         private void btndoshit_Click(object sender, EventArgs e)
         {
-            DbHandling dbh = new();
-
-            //dbh.InsertFD();
-            List<string> idk = dbh.SelectKeywords();
+            
+            List<string> idk = DbHandling.SelectKeywords();
         }
     }
 }
