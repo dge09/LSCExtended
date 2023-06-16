@@ -31,6 +31,7 @@
             this.Tb_Keys = new System.Windows.Forms.TextBox();
             this.Btn_Add = new System.Windows.Forms.Button();
             this.DGV_Keys = new System.Windows.Forms.DataGridView();
+            this.Btn_del = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGV_Keys)).BeginInit();
             this.SuspendLayout();
             // 
@@ -56,16 +57,30 @@
             this.DGV_Keys.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGV_Keys.Location = new System.Drawing.Point(12, 45);
             this.DGV_Keys.Name = "DGV_Keys";
+            this.DGV_Keys.ReadOnly = true;
             this.DGV_Keys.RowHeadersWidth = 51;
             this.DGV_Keys.RowTemplate.Height = 29;
+            this.DGV_Keys.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGV_Keys.Size = new System.Drawing.Size(493, 221);
             this.DGV_Keys.TabIndex = 2;
+            this.DGV_Keys.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Kd_del);
+            // 
+            // Btn_del
+            // 
+            this.Btn_del.Location = new System.Drawing.Point(511, 45);
+            this.Btn_del.Name = "Btn_del";
+            this.Btn_del.Size = new System.Drawing.Size(94, 29);
+            this.Btn_del.TabIndex = 3;
+            this.Btn_del.Text = "Delete";
+            this.Btn_del.UseVisualStyleBackColor = true;
+            this.Btn_del.Click += new System.EventHandler(this.Btn_del_Click);
             // 
             // F_Keys
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(617, 278);
+            this.Controls.Add(this.Btn_del);
             this.Controls.Add(this.DGV_Keys);
             this.Controls.Add(this.Btn_Add);
             this.Controls.Add(this.Tb_Keys);
@@ -82,5 +97,6 @@
         private TextBox Tb_Keys;
         private Button Btn_Add;
         private DataGridView DGV_Keys;
+        private Button Btn_del;
     }
 }

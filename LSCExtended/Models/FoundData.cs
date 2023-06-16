@@ -9,7 +9,7 @@ namespace LSCExtended.Models
 
     public class FoundData
     {
-        public int? ID { get; set; }
+        public int? FDID { get; set; }
         public string FData { get; set; }
         public string Category { get; set; }
         public string Link { get; set; }
@@ -26,7 +26,7 @@ namespace LSCExtended.Models
 
         public FoundData(int id, string data, string category, string link)
         {
-            ID = id;
+            FDID = id;
             FData = data;
             Category = category;
             Link = link;

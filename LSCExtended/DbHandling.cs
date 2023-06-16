@@ -22,6 +22,8 @@ namespace LSCExtended
         private static String FDSelect;
         private static String KWInsert;
         private static String KWSelect;
+        private static String FDDelete;
+        private static String KWDelete;
         
         
 
@@ -31,10 +33,11 @@ namespace LSCExtended
             FDInsert = "INSERT INTO FoundData VALUES(@collectedData, @category, @link); SELECT CAST(scope_identity() AS int);";
             KWInsert = "INSERT INTO Keyword VALUES(@keyword); SELECT CAST(scope_identity() AS int);";
 
-            FDSelect = "SELECT ID, FData, Category, Link FROM FoundData;";
+            FDSelect = "SELECT FDID, FData, Category, Link FROM FoundData;";
             KWSelect = "SELECT * FROM KeyWord;";
 
-
+            FDDelete = "DELETE FROM FoundData WHERE FDID = @fdID";
+            KWDelete = "DELETE FROM KeyWord WHERE KeyID = @keyID";
         }
 
 
@@ -77,7 +80,7 @@ namespace LSCExtended
                     {
                         FoundData readFoundData = new FoundData
                         {
-                            ID = reader.GetInt32(0),
+                            FDID = reader.GetInt32(0),
                             FData = reader.GetString(1),
                             Category = reader.GetString(2),
                             Link = reader.GetString(3)
@@ -93,6 +96,20 @@ namespace LSCExtended
             }
         }
 
+        public static void DeleteFoundData(int id)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                SqlCommand insCmd = new SqlCommand(FDDelete, con);
+
+                con.Open();
+
+                insCmd.Parameters.AddWithValue("@fdID", id);
+                int idk = (int)insCmd.ExecuteNonQuery();
+
+                con.Close();
+            }
+        }
 
 
         //================================================================================================
@@ -100,27 +117,28 @@ namespace LSCExtended
         //================================================================================================
         public static void InsertKeyword(string unsplitKeys)
         {
-            using (SqlConnection con = new SqlConnection(connectionString))
+            if (!String.IsNullOrEmpty(unsplitKeys))
             {
-                SqlCommand insCmd = new SqlCommand(KWInsert, con);
-
-                string[] Keywords = unsplitKeys.Split(',');
-                
-                con.Open();
-
-                foreach (string item in Keywords)
+                using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    insCmd.Parameters.Clear();
+                    SqlCommand insCmd = new SqlCommand(KWInsert, con);
 
-                    insCmd.Parameters.AddWithValue("@keyword", item);
-                    int idk = (int)insCmd.ExecuteNonQuery();
+                    string[] Keywords = unsplitKeys.Split(',');
+                
+                    con.Open();
+
+                    foreach (string item in Keywords)
+                    {
+                        insCmd.Parameters.Clear();
+
+                        insCmd.Parameters.AddWithValue("@keyword", item);
+                        int idk = (int)insCmd.ExecuteNonQuery();
+                    }
+
+                    con.Close();
                 }
-
-                con.Close();
             }
         }
-
-
 
         public static List<Keyword> SelectKeywords()
         {
@@ -154,6 +172,20 @@ namespace LSCExtended
             }
         }
 
+        public static void DeleteKeyword(int id)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                SqlCommand insCmd = new SqlCommand(KWDelete, con);
+
+                con.Open();
+
+                insCmd.Parameters.AddWithValue("@keyID", id);
+                int idk = (int)insCmd.ExecuteNonQuery();
+
+                con.Close();
+            }
+        }
 
     }
 }

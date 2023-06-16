@@ -20,31 +20,7 @@ namespace LSCExtended
             lb_liveLog.Visible = false;
             dgv_data.Visible = true;
 
-            List<FoundData> fd = DbHandling.SelectFoundData();
-
-            dgv_data.Columns.Add("ID", "ID");
-            dgv_data.Columns.Add("FData", "FData");
-            dgv_data.Columns.Add("Category", "Category");
-            dgv_data.Columns.Add("Link", "Link");
-
-            foreach (FoundData item in fd)
-            {
-                dgv_data.Rows.Add(item.ID, item.FData, item.Category, item.Link);
-            }
-
-
-
-            // no longer needed
-            //basePath = Environment.GetFolderPath(Environment.SpecialFolder.InternetCache);
-
-            //BaseFilePath = DBFileHandling.CheckSQLiteFile();
-            //BaseFilePath = DBFileHandling.SetupSQLite(BaseFilePath);
-            //ConnectionString = DBFileHandling.GetConnectionString(BaseFilePath);
-
-            //myCon = DBFileHandling.GetSQLiteConnection(ConnectionString, myCon);
-
-            //DBFileHandling.CreateFoundDataTable(myCon);
-            //DBFileHandling.CreateKeywordTable(myCon);
+            Updatedgv_data();
         }
 
         private void btn_start_Click(object sender, EventArgs e)
@@ -79,18 +55,52 @@ namespace LSCExtended
             keyForm.ShowDialog();
         }
 
-
-        // just for testin DELETE AT THE END
-        private void btndoshit_Click(object sender, EventArgs e)
-        {
-            
-            
-        }
-
-        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void Mi_editKeys_Click(object sender, EventArgs e)
         {
             F_Keys keyForm = new(myCon);
             keyForm.ShowDialog();
+        }
+
+        private void Kd_del(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                if (dgv_data.SelectedRows.Count > 0)
+                {
+                    DataGridViewRow selRow = dgv_data.SelectedRows[0];
+                    int idToDelete = (int)selRow.Cells[0].Value;
+
+                    DbHandling.DeleteFoundData(idToDelete);
+
+                    Updatedgv_data();
+                }
+            }
+        }
+
+        private void Updatedgv_data()
+        {
+            dgv_data.Columns.Clear();
+
+            List<FoundData> fd = DbHandling.SelectFoundData();
+
+            DataGridViewTextBoxColumn columnID = new DataGridViewTextBoxColumn();
+            columnID.Name = "ColumnID";
+            columnID.HeaderText = "ID";
+            dgv_data.Columns.Add(columnID);
+            columnID.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
+            dgv_data.Columns.Add("FData", "FData");
+            dgv_data.Columns.Add("Category", "Category");
+
+            DataGridViewColumn columnLink = new DataGridViewTextBoxColumn();
+            columnLink.HeaderText = "Link";
+            columnLink.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgv_data.Columns.Add(columnLink);
+
+            foreach (FoundData item in fd)
+            {
+                dgv_data.Rows.Add(item.FDID, item.FData, item.Category, item.Link);
+            }
         }
     }
 }

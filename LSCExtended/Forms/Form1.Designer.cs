@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.bg_controlls = new System.Windows.Forms.GroupBox();
-            this.btndoshit = new System.Windows.Forms.Button();
             this.btn_start = new System.Windows.Forms.Button();
             this.tb_repeats = new System.Windows.Forms.TextBox();
             this.l_repeats = new System.Windows.Forms.Label();
@@ -38,8 +37,7 @@
             this.dgv_data = new System.Windows.Forms.DataGridView();
             this.l_data = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.Mbtn_addKeyWrd = new System.Windows.Forms.ToolStripMenuItem();
+            this.Mi_editKeys = new System.Windows.Forms.ToolStripMenuItem();
             this.historyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Mbtn_showLateFnd = new System.Windows.Forms.ToolStripMenuItem();
             this.bg_controlls.SuspendLayout();
@@ -50,7 +48,6 @@
             // 
             // bg_controlls
             // 
-            this.bg_controlls.Controls.Add(this.btndoshit);
             this.bg_controlls.Controls.Add(this.btn_start);
             this.bg_controlls.Controls.Add(this.tb_repeats);
             this.bg_controlls.Controls.Add(this.l_repeats);
@@ -60,16 +57,6 @@
             this.bg_controlls.TabIndex = 4;
             this.bg_controlls.TabStop = false;
             this.bg_controlls.Text = "Controlls";
-            // 
-            // btndoshit
-            // 
-            this.btndoshit.Location = new System.Drawing.Point(296, 20);
-            this.btndoshit.Name = "btndoshit";
-            this.btndoshit.Size = new System.Drawing.Size(94, 29);
-            this.btndoshit.TabIndex = 3;
-            this.btndoshit.Text = "do smthng";
-            this.btndoshit.UseVisualStyleBackColor = true;
-            this.btndoshit.Click += new System.EventHandler(this.btndoshit_Click);
             // 
             // btn_start
             // 
@@ -126,8 +113,10 @@
             this.dgv_data.Name = "dgv_data";
             this.dgv_data.RowHeadersWidth = 51;
             this.dgv_data.RowTemplate.Height = 29;
+            this.dgv_data.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv_data.Size = new System.Drawing.Size(547, 266);
             this.dgv_data.TabIndex = 1;
+            this.dgv_data.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Kd_del);
             // 
             // l_data
             // 
@@ -142,7 +131,7 @@
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.settingsToolStripMenuItem,
+            this.Mi_editKeys,
             this.historyToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -150,22 +139,13 @@
             this.menuStrip1.TabIndex = 6;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // settingsToolStripMenuItem
+            // Mi_editKeys
             // 
-            this.settingsToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.Mbtn_addKeyWrd});
-            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
-            this.settingsToolStripMenuItem.Text = "Edit Keys";
-            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
-            // 
-            // Mbtn_addKeyWrd
-            // 
-            this.Mbtn_addKeyWrd.Name = "Mbtn_addKeyWrd";
-            this.Mbtn_addKeyWrd.Size = new System.Drawing.Size(224, 26);
-            this.Mbtn_addKeyWrd.Text = "Add Keywords";
-            this.Mbtn_addKeyWrd.Click += new System.EventHandler(this.Mbtn_addKeyWrd_Click);
+            this.Mi_editKeys.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.Mi_editKeys.Name = "Mi_editKeys";
+            this.Mi_editKeys.Size = new System.Drawing.Size(83, 24);
+            this.Mi_editKeys.Text = "Edit Keys";
+            this.Mi_editKeys.Click += new System.EventHandler(this.Mi_editKeys_Click);
             // 
             // historyToolStripMenuItem
             // 
@@ -215,11 +195,9 @@
         private DataGridView dgv_data;
         private Label l_data;
         private MenuStrip menuStrip1;
-        private ToolStripMenuItem settingsToolStripMenuItem;
-        private ToolStripMenuItem Mbtn_addKeyWrd;
         private ToolStripMenuItem historyToolStripMenuItem;
         private ToolStripMenuItem Mbtn_showLateFnd;
-        private Button btndoshit;
         private ListBox lb_liveLog;
+        private ToolStripMenuItem Mi_editKeys;
     }
 }

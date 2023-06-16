@@ -34,7 +34,34 @@ namespace LSCExtended
             UpdateDGVKeys();
         }
 
+        private void Kd_del(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                if (DGV_Keys.SelectedRows.Count > 0)
+                {
+                    DataGridViewRow selRow = DGV_Keys.SelectedRows[0];
+                    int idToDelete = (int)selRow.Cells[0].Value;
 
+                    DbHandling.DeleteKeyword(idToDelete);
+
+                    UpdateDGVKeys();
+                }
+            }
+        }
+
+        private void Btn_del_Click(object sender, EventArgs e)
+        {
+            if (DGV_Keys.SelectedRows.Count > 0)
+            {
+                DataGridViewRow selRow = DGV_Keys.SelectedRows[0];
+                int idToDelete = (int)selRow.Cells[0].Value;
+
+                DbHandling.DeleteKeyword(idToDelete);
+
+                UpdateDGVKeys();
+            }
+        }
 
 
         private void UpdateDGVKeys()
@@ -44,6 +71,8 @@ namespace LSCExtended
             List<Keyword> kw = DbHandling.SelectKeywords();
 
             DGV_Keys.Columns.Add("ID", "ID");
+
+
             DataGridViewColumn columnKeyword = new DataGridViewTextBoxColumn();
             columnKeyword.HeaderText = "Keyword";
             columnKeyword.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -54,5 +83,6 @@ namespace LSCExtended
                 DGV_Keys.Rows.Add(item.ID, item.KeyWord);
             }
         }
+
     }
 }
