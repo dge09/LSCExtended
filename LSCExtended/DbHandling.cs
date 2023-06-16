@@ -24,6 +24,9 @@ namespace LSCExtended
         private static String KWSelect;
         private static String FDDelete;
         private static String KWDelete;
+
+
+        private static String SelectSpecific;
         
         
 
@@ -38,6 +41,8 @@ namespace LSCExtended
 
             FDDelete = "DELETE FROM FoundData WHERE FDID = @fdID";
             KWDelete = "DELETE FROM KeyWord WHERE KeyID = @keyID";
+
+            SelectSpecific = "SELECT * FROM FoundData Where Category = @category;";
         }
 
 
@@ -45,14 +50,23 @@ namespace LSCExtended
         //==================================  FoundData  =================================================
         //================================================================================================
 
-        public static void InsertFD()
+        public static void InsertFD(string collectedData, List<string> categoryLs, string link)
         {
+            string category = String.Empty;
+
+            foreach (var item in categoryLs)
+            {
+                category += item + ',';
+            }
+
+            category = category.TrimEnd(',');
+
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 SqlCommand insCmd = new SqlCommand(FDInsert, con);
-                insCmd.Parameters.AddWithValue("@collectedData", "idfk");
-                insCmd.Parameters.AddWithValue("@category", "none");
-                insCmd.Parameters.AddWithValue("@link", "www.google.at");
+                insCmd.Parameters.AddWithValue("@collectedData", collectedData);
+                insCmd.Parameters.AddWithValue("@category", category);
+                insCmd.Parameters.AddWithValue("@link", link);
 
                 con.Open();
 
@@ -61,6 +75,7 @@ namespace LSCExtended
                 con.Close();
             }
         }
+
 
         public static List<FoundData> SelectFoundData()
         {
@@ -184,6 +199,49 @@ namespace LSCExtended
                 int idk = (int)insCmd.ExecuteNonQuery();
 
                 con.Close();
+            }
+        }
+
+
+
+
+
+        //================================================================================================
+        //==================================  INF Exercice  ==============================================
+        //================================================================================================
+        public static List<FoundData> SelectFoundDataSpecific(string category)
+        {
+            List<FoundData> foundData = new();
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                SqlCommand selCmd = new SqlCommand(SelectSpecific, con);
+
+                selCmd.Parameters.AddWithValue("@category", category);
+
+                con.Open();
+
+                reader = selCmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        FoundData readFoundData = new FoundData
+                        {
+                            FDID = reader.GetInt32(0),
+                            FData = reader.GetString(1),
+                            Category = reader.GetString(2),
+                            Link = reader.GetString(3)
+                        };
+
+                        foundData.Add(readFoundData);
+                    }
+                }
+
+                reader.Close();
+
+                return foundData;
             }
         }
 

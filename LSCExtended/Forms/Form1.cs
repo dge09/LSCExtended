@@ -1,5 +1,5 @@
 using System.Data.SQLite;
-using LSCExtended.DataBase;
+using LSC;
 using LSCExtended.DataHandling;
 using LSCExtended.Models;
 using SixLabors.Fonts;
@@ -17,21 +17,26 @@ namespace LSCExtended
         {
             InitializeComponent();
 
-            lb_liveLog.Visible = false;
-            dgv_data.Visible = true;
+            basePath = FileHanlding.CheckRequiredBasePath();
 
             Updatedgv_data();
+
+            List<string> keywords = DataFilter.GetStringListKeywords(DbHandling.SelectKeywords());
+
+            foreach (string item in keywords)
+            {
+                Cb_keywords.Items.Add(item);
+            }
         }
 
         private void btn_start_Click(object sender, EventArgs e)
         {
-            dgv_data.Visible = false;
-            lb_liveLog.Visible = true;
             string url;
             string imgUrl;
             string httpCode;
             string imgPath;
             string collectedData;
+            List<string> foundKeywords = new();
             FoundData fd = new();
 
             for (int i = 0; i < int.Parse(tb_repeats.Text); i++)
@@ -45,8 +50,23 @@ namespace LSCExtended
                     imgPath = WebHandling.DownloadImg(imgUrl, basePath);
                     collectedData = OCRHandling.GetTextFromImg(imgPath);
 
+                    if (!String.IsNullOrEmpty(collectedData))
+                    {
+                        foundKeywords = DataFilter.SearchForKeywords(collectedData);
+                    }
+
+                    if (foundKeywords.Count > 0)
+                    {
+                        DbHandling.InsertFD(collectedData, foundKeywords, url);
+                    }
                 }
+                l_data.Text = i + " runs done!";
             }
+
+            l_data.Text = "Done!";
+
+            Updatedgv_data();
+
         }
 
         private void Mbtn_addKeyWrd_Click(object sender, EventArgs e)
@@ -102,6 +122,24 @@ namespace LSCExtended
                 dgv_data.Rows.Add(item.FDID, item.FData, item.Category, item.Link);
             }
         }
+
+        private void Sic_filter(object sender, EventArgs e)
+        {
+            List<FoundData> fd = DbHandling.SelectFoundDataSpecific(Cb_keywords.Text);
+
+            dgv_data.Rows.Clear();
+
+            foreach (var item in fd)
+            {
+                dgv_data.Rows.Add(item.FDID, item.FData, item.Category, item.Link);
+            }
+        }
+
+        private void Mi_History_Click(object sender, EventArgs e)
+        {
+            Cb_keywords.Text = "";
+            Updatedgv_data();
+        }
     }
 }
 
@@ -109,4 +147,8 @@ namespace LSCExtended
 
 // DONE -> Lastenheft 
 // Code und Ablauf Dokumentation
-// Review (1/2 Seite)
+// Review (1/2 Seite
+
+
+// https://image.prntscr.com/image/7EveunrfR-i4V7BZw7TMqw.jpeg
+// https://prnt.sc/taavls

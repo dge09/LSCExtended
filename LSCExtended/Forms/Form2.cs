@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using LSCExtended.DataBase;
 using LSCExtended.Models;
 
 namespace LSCExtended
@@ -62,7 +61,6 @@ namespace LSCExtended
                 UpdateDGVKeys();
             }
         }
-
 
         private void UpdateDGVKeys()
         {

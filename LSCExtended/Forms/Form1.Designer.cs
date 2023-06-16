@@ -33,13 +33,12 @@
             this.tb_repeats = new System.Windows.Forms.TextBox();
             this.l_repeats = new System.Windows.Forms.Label();
             this.gb_data = new System.Windows.Forms.GroupBox();
-            this.lb_liveLog = new System.Windows.Forms.ListBox();
+            this.Cb_keywords = new System.Windows.Forms.ComboBox();
             this.dgv_data = new System.Windows.Forms.DataGridView();
             this.l_data = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.Mi_editKeys = new System.Windows.Forms.ToolStripMenuItem();
-            this.historyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.Mbtn_showLateFnd = new System.Windows.Forms.ToolStripMenuItem();
+            this.Mi_History = new System.Windows.Forms.ToolStripMenuItem();
             this.bg_controlls.SuspendLayout();
             this.gb_data.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_data)).BeginInit();
@@ -86,7 +85,7 @@
             // 
             // gb_data
             // 
-            this.gb_data.Controls.Add(this.lb_liveLog);
+            this.gb_data.Controls.Add(this.Cb_keywords);
             this.gb_data.Controls.Add(this.dgv_data);
             this.gb_data.Controls.Add(this.l_data);
             this.gb_data.Location = new System.Drawing.Point(12, 110);
@@ -96,15 +95,14 @@
             this.gb_data.TabStop = false;
             this.gb_data.Text = "Data View";
             // 
-            // lb_liveLog
+            // Cb_keywords
             // 
-            this.lb_liveLog.FormattingEnabled = true;
-            this.lb_liveLog.ItemHeight = 20;
-            this.lb_liveLog.Location = new System.Drawing.Point(6, 46);
-            this.lb_liveLog.Name = "lb_liveLog";
-            this.lb_liveLog.Size = new System.Drawing.Size(547, 264);
-            this.lb_liveLog.TabIndex = 2;
-            this.lb_liveLog.Visible = false;
+            this.Cb_keywords.FormattingEnabled = true;
+            this.Cb_keywords.Location = new System.Drawing.Point(402, 15);
+            this.Cb_keywords.Name = "Cb_keywords";
+            this.Cb_keywords.Size = new System.Drawing.Size(151, 28);
+            this.Cb_keywords.TabIndex = 7;
+            this.Cb_keywords.SelectedIndexChanged += new System.EventHandler(this.Sic_filter);
             // 
             // dgv_data
             // 
@@ -132,7 +130,7 @@
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Mi_editKeys,
-            this.historyToolStripMenuItem});
+            this.Mi_History});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(584, 28);
@@ -147,20 +145,13 @@
             this.Mi_editKeys.Text = "Edit Keys";
             this.Mi_editKeys.Click += new System.EventHandler(this.Mi_editKeys_Click);
             // 
-            // historyToolStripMenuItem
+            // Mi_History
             // 
-            this.historyToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.historyToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.Mbtn_showLateFnd});
-            this.historyToolStripMenuItem.Name = "historyToolStripMenuItem";
-            this.historyToolStripMenuItem.Size = new System.Drawing.Size(70, 24);
-            this.historyToolStripMenuItem.Text = "History";
-            // 
-            // Mbtn_showLateFnd
-            // 
-            this.Mbtn_showLateFnd.Name = "Mbtn_showLateFnd";
-            this.Mbtn_showLateFnd.Size = new System.Drawing.Size(225, 26);
-            this.Mbtn_showLateFnd.Text = "Show latest findings";
+            this.Mi_History.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.Mi_History.Name = "Mi_History";
+            this.Mi_History.Size = new System.Drawing.Size(70, 24);
+            this.Mi_History.Text = "History";
+            this.Mi_History.Click += new System.EventHandler(this.Mi_History_Click);
             // 
             // Form1
             // 
@@ -195,9 +186,8 @@
         private DataGridView dgv_data;
         private Label l_data;
         private MenuStrip menuStrip1;
-        private ToolStripMenuItem historyToolStripMenuItem;
-        private ToolStripMenuItem Mbtn_showLateFnd;
-        private ListBox lb_liveLog;
         private ToolStripMenuItem Mi_editKeys;
+        private ComboBox Cb_keywords;
+        private ToolStripMenuItem Mi_History;
     }
 }
