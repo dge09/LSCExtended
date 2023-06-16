@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using LSCExtended.DataBase;
+using LSCExtended.Models;
 
 namespace LSCExtended
 {
@@ -22,28 +23,35 @@ namespace LSCExtended
 
             this.myCon = myCon;
 
+            
             UpdateDGVKeys();
         }
 
         private void Btn_Add_Click(object sender, EventArgs e)
         {
-            string[] aKeys = Tb_Keys.Text.Split(',');
-            List<string> keys = aKeys.ToList<string>();
+            DbHandling.InsertKeyword(Tb_Keys.Text);
 
-            DBFileHandling.InsertIntoDBKeywords(myCon, keys);
-
-            this.Close();
+            UpdateDGVKeys();
         }
+
+
+
 
         private void UpdateDGVKeys()
         {
             DGV_Keys.Columns.Clear();
 
-            List<string> keys = DbHandling.SelectKeywords();
+            List<Keyword> kw = DbHandling.SelectKeywords();
 
-            foreach (var key in keys)
+            DGV_Keys.Columns.Add("ID", "ID");
+            DataGridViewColumn columnKeyword = new DataGridViewTextBoxColumn();
+            columnKeyword.HeaderText = "Keyword";
+            columnKeyword.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DGV_Keys.Columns.Add(columnKeyword);
+
+            foreach (Keyword item in kw)
             {
-                DGV_Keys.Rows.Add(key);
+                DGV_Keys.Rows.Add(item.ID, item.KeyWord);
             }
         }
     }

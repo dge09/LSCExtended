@@ -1,6 +1,7 @@
 using System.Data.SQLite;
 using LSCExtended.DataBase;
 using LSCExtended.DataHandling;
+using LSCExtended.Models;
 using SixLabors.Fonts;
 
 namespace LSCExtended
@@ -83,7 +84,13 @@ namespace LSCExtended
         private void btndoshit_Click(object sender, EventArgs e)
         {
             
-            List<string> idk = DbHandling.SelectKeywords();
+            
+        }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            F_Keys keyForm = new(myCon);
+            keyForm.ShowDialog();
         }
     }
 }

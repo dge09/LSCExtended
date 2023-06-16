@@ -1,4 +1,5 @@
-﻿using SixLabors.ImageSharp.ColorSpaces;
+﻿using LSCExtended.Models;
+using SixLabors.ImageSharp.ColorSpaces;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -97,34 +98,62 @@ namespace LSCExtended
         //================================================================================================
         //==================================  Keywords  ==================================================
         //================================================================================================
-        public static List<String> SelectKeywords()
+        public static void InsertKeyword(string unsplitKeys)
         {
-            List<string> KeyWords = new();
-            string readKeyword = string.Empty;
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                SqlCommand insCmd = new SqlCommand(KWInsert, con);
+
+                string[] Keywords = unsplitKeys.Split(',');
+                
+                con.Open();
+
+                foreach (string item in Keywords)
+                {
+                    insCmd.Parameters.Clear();
+
+                    insCmd.Parameters.AddWithValue("@keyword", item);
+                    int idk = (int)insCmd.ExecuteNonQuery();
+                }
+
+                con.Close();
+            }
+        }
+
+
+
+        public static List<Keyword> SelectKeywords()
+        {
+            List<Keyword> kw = new();
 
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 SqlCommand selCmd = new SqlCommand(KWSelect, con);
-                
+
                 con.Open();
-                
+
                 reader = selCmd.ExecuteReader();
 
                 if (reader.HasRows)
                 {
                     while (reader.Read())
                     {
+                        Keyword readKeyWord = new Keyword
+                        {
+                            ID = reader.GetInt32(0),
+                            KeyWord = reader.GetString(1)
+                        };
 
-                        readKeyword = new(reader.GetString(1));
-                        KeyWords.Add(readKeyword);
+                        kw.Add(readKeyWord);
                     }
                 }
 
                 reader.Close();
 
-                return KeyWords;
+                return kw;
             }
         }
+
 
     }
 }

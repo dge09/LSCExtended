@@ -34,16 +34,14 @@
             this.tb_repeats = new System.Windows.Forms.TextBox();
             this.l_repeats = new System.Windows.Forms.Label();
             this.gb_data = new System.Windows.Forms.GroupBox();
+            this.lb_liveLog = new System.Windows.Forms.ListBox();
             this.dgv_data = new System.Windows.Forms.DataGridView();
             this.l_data = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Mbtn_addKeyWrd = new System.Windows.Forms.ToolStripMenuItem();
-            this.Mbtn_remKeyWrd = new System.Windows.Forms.ToolStripMenuItem();
-            this.Mbtn_rstKeyWrds = new System.Windows.Forms.ToolStripMenuItem();
             this.historyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Mbtn_showLateFnd = new System.Windows.Forms.ToolStripMenuItem();
-            this.lb_liveLog = new System.Windows.Forms.ListBox();
             this.bg_controlls.SuspendLayout();
             this.gb_data.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_data)).BeginInit();
@@ -111,6 +109,16 @@
             this.gb_data.TabStop = false;
             this.gb_data.Text = "Data View";
             // 
+            // lb_liveLog
+            // 
+            this.lb_liveLog.FormattingEnabled = true;
+            this.lb_liveLog.ItemHeight = 20;
+            this.lb_liveLog.Location = new System.Drawing.Point(6, 46);
+            this.lb_liveLog.Name = "lb_liveLog";
+            this.lb_liveLog.Size = new System.Drawing.Size(547, 264);
+            this.lb_liveLog.TabIndex = 2;
+            this.lb_liveLog.Visible = false;
+            // 
             // dgv_data
             // 
             this.dgv_data.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -146,31 +154,18 @@
             // 
             this.settingsToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.Mbtn_addKeyWrd,
-            this.Mbtn_remKeyWrd,
-            this.Mbtn_rstKeyWrds});
+            this.Mbtn_addKeyWrd});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(76, 24);
-            this.settingsToolStripMenuItem.Text = "Settings";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
+            this.settingsToolStripMenuItem.Text = "Edit Keys";
+            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // Mbtn_addKeyWrd
             // 
             this.Mbtn_addKeyWrd.Name = "Mbtn_addKeyWrd";
-            this.Mbtn_addKeyWrd.Size = new System.Drawing.Size(214, 26);
+            this.Mbtn_addKeyWrd.Size = new System.Drawing.Size(224, 26);
             this.Mbtn_addKeyWrd.Text = "Add Keywords";
             this.Mbtn_addKeyWrd.Click += new System.EventHandler(this.Mbtn_addKeyWrd_Click);
-            // 
-            // Mbtn_remKeyWrd
-            // 
-            this.Mbtn_remKeyWrd.Name = "Mbtn_remKeyWrd";
-            this.Mbtn_remKeyWrd.Size = new System.Drawing.Size(214, 26);
-            this.Mbtn_remKeyWrd.Text = "Remove Keywords";
-            // 
-            // Mbtn_rstKeyWrds
-            // 
-            this.Mbtn_rstKeyWrds.Name = "Mbtn_rstKeyWrds";
-            this.Mbtn_rstKeyWrds.Size = new System.Drawing.Size(214, 26);
-            this.Mbtn_rstKeyWrds.Text = "Reset Keywords";
             // 
             // historyToolStripMenuItem
             // 
@@ -186,16 +181,6 @@
             this.Mbtn_showLateFnd.Name = "Mbtn_showLateFnd";
             this.Mbtn_showLateFnd.Size = new System.Drawing.Size(225, 26);
             this.Mbtn_showLateFnd.Text = "Show latest findings";
-            // 
-            // lb_liveLog
-            // 
-            this.lb_liveLog.FormattingEnabled = true;
-            this.lb_liveLog.ItemHeight = 20;
-            this.lb_liveLog.Location = new System.Drawing.Point(6, 46);
-            this.lb_liveLog.Name = "lb_liveLog";
-            this.lb_liveLog.Size = new System.Drawing.Size(547, 264);
-            this.lb_liveLog.TabIndex = 2;
-            this.lb_liveLog.Visible = false;
             // 
             // Form1
             // 
@@ -232,8 +217,6 @@
         private MenuStrip menuStrip1;
         private ToolStripMenuItem settingsToolStripMenuItem;
         private ToolStripMenuItem Mbtn_addKeyWrd;
-        private ToolStripMenuItem Mbtn_remKeyWrd;
-        private ToolStripMenuItem Mbtn_rstKeyWrds;
         private ToolStripMenuItem historyToolStripMenuItem;
         private ToolStripMenuItem Mbtn_showLateFnd;
         private Button btndoshit;
