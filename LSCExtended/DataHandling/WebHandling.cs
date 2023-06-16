@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace LSCExtended
+namespace LSCExtended.DataHandling
 {
     public static class WebHandling
     {
@@ -37,7 +37,7 @@ namespace LSCExtended
 
             string httpString = null;
 
-            if (!(File.Exists(fileName)))
+            if (!File.Exists(fileName))
             {
                 File.Create(fileName);
             }
@@ -52,6 +52,16 @@ namespace LSCExtended
 
                 reader.Close();
             }
+
+
+            return httpString;
+        }
+
+        public static string GetHttpString(string url)
+        {
+            WebClient wb = new();
+            wb.Headers.Add("User-Agent: Other");   //that is the simple line!
+            string httpString = wb.DownloadString(url);
 
             return httpString;
         }
@@ -70,6 +80,21 @@ namespace LSCExtended
             return imgUrl;
         }
 
+        public static string GetImgUrl(string httpString)
+        {
+            string imgUrl = null;
+            Match tmp;
+
+            Regex html = new Regex("<meta property=.{1,2}og:image.{1,3}content=.{1,2}(?<capture>https://[a-zA-Z0-9\\-:/\\._]+).{1,2}/>");
+
+            tmp = html.Match(httpString);
+
+            imgUrl = tmp.Groups["capture"].ToString();
+
+            return imgUrl;
+        }
+
+
         public static bool CheckWebsiteExistance(string imgUrl)
         {
             WebClient imgWebClient = new();
@@ -82,7 +107,7 @@ namespace LSCExtended
             {
                 return false;
             }
-            catch (System.ArgumentException)
+            catch (ArgumentException)
             {
                 return false;
             }
@@ -100,13 +125,12 @@ namespace LSCExtended
                 {
                     client.DownloadFile(new Uri(imgUrl), imgName);
                 }
-                catch (System.Net.WebException)
+                catch (WebException)
                 {
                     // alle Console.WriteLine loswerden,
                     // ("     404 no real img detected");
                     imgName = "404";
                 }
-
             }
 
             return imgName;

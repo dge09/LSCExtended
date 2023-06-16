@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LSCExtended
+namespace LSCExtended.DataHandling
 {
     public static class OCRHandling
     {
@@ -27,13 +27,12 @@ namespace LSCExtended
 
                 File.Delete(imgName);
             }
-            catch (System.IO.FileNotFoundException)
+            catch (FileNotFoundException)
             {
                 Console.WriteLine("      Unable to find file!");
             }
 
             return collectedData;
         }
-
     }
 }
